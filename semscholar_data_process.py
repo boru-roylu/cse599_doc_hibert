@@ -14,6 +14,18 @@ def clean_text(text):
 
     return text
 
+def parse_metadata(metadata_path):
+
+    paper_metadata = {}
+    with open(metadata_path, 'r') as rf:
+        for line in rf:
+            raw_metadata = json.loads(line)
+            paper_metadata[raw_metadata['paper_id']] = {
+                k: v for k, v in raw_metadata.items() if k!='paper_id'
+            }
+            
+    return paper_metadata
+
 def main():
 
     data_file = 'semscholar_data.jsonl'
